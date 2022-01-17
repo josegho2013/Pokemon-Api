@@ -4,18 +4,48 @@ const { Sequelize } = require("sequelize");
 //const { API_KEY } = process.env;
 const { v4: uuidv4 } = require("uuid");
 
+// async function getApiPokemons(req, res, next) {
+//   const apiUrl = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1");
+//   let apiInfo = apiUrl.data.results.map((e) => axios.get(e.url));
+
+//   try {
+//     Promise.all(apiInfo)
+//       .then((resp) => {
+//         let pokeapi = [];
+//         let data = resp.map((i) => i.data);
+//         data.map((p) =>
+//           pokeapi.push({
+//             id: uuidv4(),
+//             name: p.name,
+//             hp: p.stats[0].base_stat,
+//             streght: p.stats[1].base_stat,
+//             defense: p.stats[2].base_stat,
+//             speed: p.stats[5].base_stat,
+//             height: p.height,
+//             weight: p.weight,
+//             img: p.sprites.other.dream_world.front_default,
+//             types: p.types.map((t) => t.type.name),
+//           })
+//         );
+
+//         res.status(200).send(pokeapi);
+//       })
+//       .catch((error) => {
+//         next(error);
+//       });
+//   } catch (error) {
+//     next(error);
+//   }
+// }
+
 async function getApiPokemons(req, res, next) {
+  const apiUrl = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1");
+  let apiInfo = apiUrl.data.results.map((el) => axios.get(el.url));
+  
   try {
     // informacion de la api
-    const apiUrl = await axios.get(
-      "https://pokeapi.co/api/v2/pokemon?limit=100"
-    );
 
-    let apiInfo = await apiUrl.data.results.map(
-      async (el) => await axios.get(el.url)
-    );
-
-    const apiPokemon = Promise.all(apiInfo)
+    Promise.all(apiInfo)
       .then((pokemon) => {
         let apiPokemonMap = pokemon.map((p) => p.data);
         let pokeapi = [];
@@ -74,7 +104,7 @@ async function pokemonById(req, res, next) {
           through: { attributes: [] },
         },
       });
-      console.log("pokeId: ", pokeId)
+      console.log("pokeId: ", pokeId);
 
       return res.status(200).send(pokeId);
     } else {
@@ -121,7 +151,7 @@ async function pokemonCreate(req, res, next) {
         name: type,
       },
     });
-    console.log("typeDb;: ", typeDb)
+    console.log("typeDb;: ", typeDb);
 
     newPokemon.addType(typeDb);
 
