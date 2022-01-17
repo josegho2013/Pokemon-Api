@@ -10,11 +10,10 @@ async function getApiPokemons(req, res, next) {
     const apiUrl = await axios.get(
       "https://pokeapi.co/api/v2/pokemon?limit=100"
     );
-    
+
     let apiInfo = await apiUrl.data.results.map(
       async (el) => await axios.get(el.url)
-      );
-     
+    );
 
     const apiPokemon = Promise.all(apiInfo)
       .then((pokemon) => {
@@ -25,7 +24,7 @@ async function getApiPokemons(req, res, next) {
             id: uuidv4(),
             name: p.name,
             hp: p.stats[0].base_stat,
-            streght: p.stats[1].base_stat,
+            attack: p.stats[1].base_stat,
             defense: p.stats[2].base_stat,
             speed: p.stats[5].base_stat,
             height: p.height,
@@ -34,17 +33,17 @@ async function getApiPokemons(req, res, next) {
             types: p.types.map((t) => t.type.name),
           });
         });
-        
+
         //console.log(apiPokemon,"apiPokemon")
-        
+
         return res.json(pokeapi);
       })
       .catch((error) => {
         next(error);
       });
-    } catch (error) {
-      next(error);
-    }
+  } catch (error) {
+    next(error);
+  }
 }
 async function getDbPokemons(req, res, next) {
   try {
@@ -64,8 +63,9 @@ async function getDbPokemons(req, res, next) {
 
 async function pokemonById(req, res, next) {
   try {
-    const { id } = req.query;
-    if (!id) {
+    const { id } = req.params;
+
+    if (id) {
       const pokeId = await Pokemon.findOne({
         where: { id: id },
         include: {
@@ -74,6 +74,7 @@ async function pokemonById(req, res, next) {
           through: { attributes: [] },
         },
       });
+      console.log("pokeId: ", pokeId)
 
       return res.status(200).send(pokeId);
     } else {
@@ -90,7 +91,6 @@ async function pokemonById(req, res, next) {
         sprite: data.data.sprites.other.dream_world.front_default,
         type: data.data.types.map((e) => e.type.name),
       };
-
       res.json(infoId);
     }
   } catch (error) {
@@ -99,24 +99,13 @@ async function pokemonById(req, res, next) {
 }
 
 async function pokemonCreate(req, res, next) {
-  let {
-    sprite,
-    name,
-    type,
-    hp,
-    attack,
-    defense,
-    speed,
-    height,
-    weight,
-    fromDb,
-  } = req.body;
+  let { name, type, hp, attack, defense, speed, height, weight, fromDb } =
+    req.body;
 
   console.log(name, "nameeee");
 
   try {
     let newPokemon = await Pokemon.create({
-      sprite,
       name,
       hp,
       attack,
@@ -132,6 +121,7 @@ async function pokemonCreate(req, res, next) {
         name: type,
       },
     });
+    console.log("typeDb;: ", typeDb)
 
     newPokemon.addType(typeDb);
 
@@ -180,31 +170,20 @@ async function pokeByName(req, res, next) {
 
 async function pokemonUpdate(req, res) {
   const { id } = req.params;
-  let {
-    sprite,
-    name,
-    type,
-    hp,
-    attack,
-    defense,
-    speed,
-    height,
-    weight,
-    fromDb,
-  } = req.body;
+  let { name, type, hp, defense, speed, height, weight, attack, fromDb } =
+    req.body;
 
   try {
     let pokeUpdate = await Pokemon.update(
       {
-        sprite,
         name,
         type,
         hp,
-        attack,
         defense,
         speed,
         height,
         weight,
+        attack,
         fromDb,
       },
       { where: { id } }
