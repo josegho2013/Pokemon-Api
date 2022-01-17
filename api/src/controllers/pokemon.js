@@ -10,16 +10,16 @@ async function getApiPokemons(req, res, next) {
     const apiUrl = await axios.get(
       "https://pokeapi.co/api/v2/pokemon?limit=100"
     );
-
+    
     let apiInfo = await apiUrl.data.results.map(
       async (el) => await axios.get(el.url)
-    );
+      );
+     
 
     const apiPokemon = Promise.all(apiInfo)
       .then((pokemon) => {
         let apiPokemonMap = pokemon.map((p) => p.data);
         let pokeapi = [];
-
         apiPokemonMap.map((p) => {
           pokeapi.push({
             id: uuidv4(),
@@ -34,15 +34,17 @@ async function getApiPokemons(req, res, next) {
             types: p.types.map((t) => t.type.name),
           });
         });
-
+        
+        //console.log(apiPokemon,"apiPokemon")
+        
         return res.json(pokeapi);
       })
       .catch((error) => {
         next(error);
       });
-  } catch (error) {
-    next(error);
-  }
+    } catch (error) {
+      next(error);
+    }
 }
 async function getDbPokemons(req, res, next) {
   try {
