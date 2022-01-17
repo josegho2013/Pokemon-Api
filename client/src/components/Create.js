@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CardDetail = () => {
+const Create = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const CardDetail = () => {
     )
 }
 
-export default CardDetail
+export default Create
