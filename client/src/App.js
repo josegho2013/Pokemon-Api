@@ -12,6 +12,14 @@ import "./App.css";
 function App() {
   return (
     <div >
+       <Route exact path="/" element={<Landing />} />
+      <Route path="/" element={<Navbar />} />
+     
+      <Route exact path="/Home" element={<Home />} />
+      <Route path="/pokemon/:id" element={<CardsDetail />} />
+
+      <Route path="/create" element={<Create />} />
+      <Route exact path="/Home" element={<Footer />} />
     
     </div>
   );
