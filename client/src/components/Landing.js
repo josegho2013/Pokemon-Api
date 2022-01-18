@@ -14,6 +14,7 @@ const Landing = () => {
 
     return (
         <div>
+          <h1>holaaa ya funcionooooooooooo</h1>
              <Link to="/home">
         <button className="button">Welcome</button>
       </Link>

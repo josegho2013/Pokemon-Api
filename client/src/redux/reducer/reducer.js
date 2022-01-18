@@ -7,7 +7,7 @@ import {
   POKE_UPDATE,
   POKE_DELETE,
   POKE_TYPE,
-  FILTER_BY_TYPE,
+  FILTER_TYPE,
 } from "../actions/actions";
 
 const initialState = {
@@ -51,7 +51,7 @@ function RootReducer(state = initialState, action) {
         ...state,
         pokeType: action.payload,
       };
-    case FILTER_BY_TYPE:
+    case FILTER_TYPE:
       if (action.payload === "All") {
         return {
           ...state,
