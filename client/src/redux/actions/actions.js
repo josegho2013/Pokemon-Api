@@ -11,13 +11,13 @@ export const POKE_TYPE = "POKE_TYPE";
 export const FILTER_TYPE = "FILTER_TYPE";
 
 
-export function getPokemonsApi() {
+export function getPokemonsApi(payload) {
   return async (dispatch) => {
     const { data } = await axios.post(`/pokemon/`, payload);
     dispatch({ type: POKE_API, payload: data });
   };
 }
-export function getPokemonsDb() {
+export function getPokemonsDb(payload) {
   return async (dispatch) => {
     const { data } = await axios.post(`/pokemon/`, payload);
     dispatch({ type: POKE_DB, payload: data });
