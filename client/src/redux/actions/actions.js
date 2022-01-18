@@ -52,7 +52,7 @@ export function updatePokemon(id) {
 
 export function deletePokemon(id) {
   return async (dispatch) => {
-    const { data } = await axios.delete(`/user/delete/${id}`);
+    const { data } = await axios.delete(`/pokemon/delete/${id}`);
     dispatch({ type: POKE_DELETE, payload: data });
   };
 }
@@ -60,6 +60,29 @@ export function deletePokemon(id) {
 export const getTypes = () => {
     return async (dispatch) => {
       const { data } = await axios.get(`/type`);
-      dispatch({ type: "POKE_TYPE", payload: data });
+      dispatch({ type: POKE_TYPE, payload: data });
     };
   };
+
+  export const filterByType = (type) => (dispatch, getState) => {
+    let filterType = [];
+  
+    if (type === "All") {
+      filterType = getState().pokemonsApi;
+      dispatch({
+        type: "FILTER_BY_TYPE",
+        payload: filterType,
+      });
+    } else {
+      let poTypes = getState().pokemonsApi;
+      filterType = poTypes.filter((po) => {
+        return po.types.some((a) => a === type);
+      });
+  
+      dispatch({
+        type: "FILTER_BY_TYPE",
+        payload: filterType,
+      });
+    }
+  };
+  
