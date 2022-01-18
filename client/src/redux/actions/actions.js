@@ -8,6 +8,8 @@ export const POKE_CREATE = "POKE_CREATE";
 export const POKE_UPDATE = "POKE_UPDATE";
 export const POKE_DELETE = "UPDATE_OPERATIONS";
 export const POKE_TYPE = "POKE_TYPE";
+export const FILTER_TYPE = "FILTER_TYPE";
+
 
 export function getPokemonsApi() {
   return async (dispatch) => {
@@ -64,25 +66,9 @@ export const getTypes = () => {
     };
   };
 
-  export const filterByType = (type) => (dispatch, getState) => {
-    let filterType = [];
-  
-    if (type === "All") {
-      filterType = getState().pokemonsApi;
-      dispatch({
-        type: "FILTER_BY_TYPE",
-        payload: filterType,
-      });
-    } else {
-      let poTypes = getState().pokemonsApi;
-      filterType = poTypes.filter((po) => {
-        return po.types.some((a) => a === type);
-      });
-  
-      dispatch({
-        type: "FILTER_BY_TYPE",
-        payload: filterType,
-      });
-    }
+  export const filterByType= (payload) => {
+    return (dispatch) => {
+      dispatch({ type: FILTER_TYPE, payload: payload });
+    };
   };
-  
+ 
