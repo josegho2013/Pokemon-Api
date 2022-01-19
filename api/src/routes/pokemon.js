@@ -10,8 +10,8 @@ const {
   pokemonDelete,
 } = require("../controllers/pokemon");
 
-router.get("/", getApiPokemons);
-router.get("/", getDbPokemons);
+router.get("/api", getApiPokemons);
+router.get("/db", getDbPokemons);
 router.get("/search", pokeByName);
 router.get("/pokemonDetail/:id", pokemonById);
 router.post("/pokemonCreate", pokemonCreate);

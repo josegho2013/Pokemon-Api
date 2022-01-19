@@ -1,25 +1,25 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getPokemonsApi } from "../redux/actions/actions";
+import { getPokemonsApi, getPokemonsDb } from "../redux/actions/actions";
 import { Link } from "react-router-dom";
 
 const Landing = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-      dispatch(getPokemonsApi());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(getPokemonsApi());
+    dispatch(getPokemonsDb());
+  }, [dispatch]);
 
-
-    return (
-        <div>
-          <h1>holaaa ya funcionooooooooooo</h1>
-             <Link to="/home">
+  return (
+    <div>
+      <h1>holaaa ya funcionooooooooooo</h1>
+      <Link to="/home">
         <button className="button">Welcome</button>
       </Link>
-        </div>
-    )
-}
+    </div>
+  );
+};
 
-export default Landing
+export default Landing;

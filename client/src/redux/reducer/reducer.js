@@ -26,13 +26,13 @@ function RootReducer(state = initialState, action) {
     case POKE_API:
       return {
         ...state,
-        pokemonsApi: action.payload,
+        pokemonApi: action.payload,
         requestPoke: action.payload,
       };
     case POKE_DB:
       return {
         ...state,
-        pokemonsDb: action.payload,
+        pokemonDb: action.payload,
       };
 
     case POKE_DETAIL:

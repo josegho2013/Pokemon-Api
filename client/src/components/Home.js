@@ -1,11 +1,38 @@
-import React from 'react'
+import React from "react";
+
+import { useSelector } from "react-redux";
+
+import Cards from "./Cards";
 
 const Home = () => {
-    return (
-        <div>
-            <h1>Por fin Apareci</h1>
-        </div>
-    )
-}
+  const pokeApi = useSelector(({ pokemonApi }) => pokemonApi);
+  const pokeDb = useSelector(({ pokemonDb }) => pokemonDb);
 
-export default Home
+  const pokeAll = pokeApi.concat(pokeDb);
+
+  console.log(pokeAll, "pokeAll");
+
+  return (
+    <div>
+      {pokeAll ? (
+        pokeAll.map((po) => {
+          return (
+            <Cards
+              key={po.id}
+              img={po.img}
+              name={po.name}
+              hp={po.hp}
+              types={po.types}
+            />
+          );
+        })
+      ) : (
+        <div>Loading...</div>
+      )}
+
+      <h1>Por fin Apareci</h1>
+    </div>
+  );
+};
+
+export default Home;

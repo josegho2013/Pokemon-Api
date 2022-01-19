@@ -16,7 +16,12 @@ function App() {
       <Route path="/" element={<Navbar />} />
 
       <Route exact path="/Home" element={<Home />} />
-      <Route path="/pokemon/:id" element={<CardsDetail />} />
+      {/* <Route path="/pokemon/:id" element={<CardsDetail />} /> */}
+      <Route
+        exact
+        path="/pokemon/:id"
+        render={({ match }) => <CardsDetail id={match.params.id} />}
+      />
 
       <Route path="/create" element={<Create />} />
       <Route exact path="/Home" element={<Footer />} />

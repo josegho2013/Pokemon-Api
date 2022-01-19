@@ -13,14 +13,14 @@ export const FILTER_TYPE = "FILTER_TYPE";
 
 export function getPokemonsApi() {
   return async (dispatch) => {
-    const { data } = await axios.get(`/pokemon`);
+    const { data } = await axios.get(`/pokemon/api`);
     console.log(data,"dataaaa")
     dispatch({ type: POKE_API, payload: data });
 };
 }
 export function getPokemonsDb() {
   return async (dispatch) => {
-    const { data } = await axios.get(`/pokemon`);
+    const { data } = await axios.get(`/pokemon/db`);
     dispatch({ type: POKE_DB, payload: data });
   };
 }
