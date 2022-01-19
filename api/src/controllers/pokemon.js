@@ -39,7 +39,7 @@ const { v4: uuidv4 } = require("uuid");
 // }
 
 async function getApiPokemons(req, res, next) {
-  const apiUrl = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=20");
+  const apiUrl = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=15");
   let apiInfo = apiUrl.data.results.map((el) => axios.get(el.url));
   
   try {

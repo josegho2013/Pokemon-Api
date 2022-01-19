@@ -11,15 +11,16 @@ export const POKE_TYPE = "POKE_TYPE";
 export const FILTER_TYPE = "FILTER_TYPE";
 
 
-export function getPokemonsApi(payload) {
+export function getPokemonsApi() {
   return async (dispatch) => {
-    const { data } = await axios.post(`/pokemon/`, payload);
+    const { data } = await axios.get(`/pokemon`);
+    console.log(data,"dataaaa")
     dispatch({ type: POKE_API, payload: data });
-  };
+};
 }
-export function getPokemonsDb(payload) {
+export function getPokemonsDb() {
   return async (dispatch) => {
-    const { data } = await axios.post(`/pokemon/`, payload);
+    const { data } = await axios.get(`/pokemon`);
     dispatch({ type: POKE_DB, payload: data });
   };
 }
@@ -33,7 +34,7 @@ export function getPokemonId(id) {
 
 export function getPokemonByName(payload) {
   return async (dispatch) => {
-    const { data } = await axios.put(`/pokemon/search?q=${payload}`);
+    const { data } = await axios.get(`/pokemon/search?q=${payload}`);
     dispatch({ type: POKE_SEARCH, payload: data });
   };
 }
