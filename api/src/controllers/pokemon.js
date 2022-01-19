@@ -54,12 +54,11 @@ async function getDbPokemons(req, res, next) {
 }
 
 async function pokemonById(req, res, next) {
+  const { id } = req.params;
+  console.log(id, "culo");
+  
   try {
-    const { id } = req.params;
-    console.log("1.iddata: ", req.params);
-    console.log("2.iddata: ", req.body);
-    console.log("3.iddata: ", req.query);
-    if (id) {
+    if (id.includes("-")) {
       const pokeId = await Pokemon.findOne({
         where: { id: id },
         include: {
@@ -74,6 +73,7 @@ async function pokemonById(req, res, next) {
       const data = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
 
       const infoId = {
+        id: data.data.id,
         name: data.data.name,
         hp: data.data.stats[0].base_stat,
         attack: data.data.stats[1].base_stat,

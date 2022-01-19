@@ -1,25 +1,39 @@
-import {React, useEffect} from 'react'
+import { React, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { getPokemonId } from "../redux/actions/actions";
 
-const CardsDetail = ({id}) => {
-    const dispatch = useDispatch();
-    const pokemonDetail= useSelector(({ pokemonDetail }) => pokemonDetail);
-    console.log(id,"ultimo")
-    useEffect(() => {
-        dispatch(getPokemonId(id));
-      }, [dispatch, id]);
+const CardsDetail = (props) => {
+  console.log(props, "ultimo");
+  const dispatch = useDispatch();
+  const pokemonDetail = useSelector(({ pokemonDetail }) => pokemonDetail);
+  const params = useParams();
+  // console.log(id, "ultimo");
 
+  useEffect(() => {
+    init();
+    dispatch(getPokemonId());
+  }, [dispatch]);
 
-    if (!pokemonDetail) {
-  
-        return <div >Loading...</div>;
-      }
+  const init = () => {
+    if (params.id) {
+      const dataById = pokemonDetail.filter((i) => {
+        if (i.id === params.id) {
+          return i;
+        }
+        return i;
+      });
+    }
+  };
 
-    return (
-        <div>
-            <h1>entro aqui</h1>
-            {/* {pokemonDetail ? (
+  if (!pokemonDetail) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <h1> {props.edit}entro aqui</h1>
+      {/* {pokemonDetail ? (
         <div>
           <img src={pokemonDetail.img} />
           <div >
@@ -43,8 +57,8 @@ const CardsDetail = ({id}) => {
       ) : (
         <div >Loading...</div>
       )} */}
-        </div>
-    )
-}
+    </div>
+  );
+};
 
-export default CardsDetail
+export default CardsDetail;

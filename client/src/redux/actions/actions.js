@@ -25,9 +25,10 @@ export function getPokemonsDb() {
 }
 
 export function getPokemonId(id) {
+  console.log(id,"ID_ACTIONS")
   return async (dispatch) => {
-    console.log("id action: ", id);
     const { data } = await axios.get(`/pokemon/pokemonDetail/${id}`);
+    console.log("id action: ", data);
     dispatch({ type: POKE_DETAIL, payload: data });
   };
 }

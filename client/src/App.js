@@ -15,11 +15,14 @@ function App() {
         <Route exact path="/" element={<Landing />} />
         <Route path="/" element={<Navbar />} />
         <Route exact path="/Home" element={<Home />} />
-        <Route
+        {/* <Route
           exact
           path="/pokemonDetail"
-          render={({ match }) => <CardsDetail id={match.params} />}
-        />
+          render={({ match }) => <CardsDetail id={match.params.id} />}
+        /> */}
+
+        <Route path="pokemonDetail/:id" element={<CardsDetail  />} />
+
         <Route path="/create" element={<Create />} />
         <Route exact path="/Home" element={<Footer />} />
       </Routes>
