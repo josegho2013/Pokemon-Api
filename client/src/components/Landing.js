@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getPokemonsApi, getPokemonsDb } from "../redux/actions/actions";
 import { Link } from "react-router-dom";
+import "./styles/Landing.css";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -13,8 +14,8 @@ const Landing = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <h1>holaaa ya funcionooooooooooo</h1>
+    <div className="landing">
+      
       <Link to="/home">
         <button className="button">Welcome</button>
       </Link>
