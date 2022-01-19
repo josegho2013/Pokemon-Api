@@ -5,7 +5,7 @@ const { Sequelize } = require("sequelize");
 const { v4: uuidv4 } = require("uuid");
 
 async function getApiPokemons(req, res, next) {
-  const apiUrl = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=15");
+  const apiUrl = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=5");
   let apiInfo = apiUrl.data.results.map((el) => axios.get(el.url));
   
   try {
@@ -26,12 +26,12 @@ async function getApiPokemons(req, res, next) {
             height: p.height,
             weight: p.weight,
             img: p.sprites.other.dream_world.front_default,
-            types: p.types.map((t) => t.type.name),
+            //types: p.types.map((t) => t.type.name),
+            types: p.types.map((e) => e.type),
           });
         });
 
-        //console.log(apiPokemon,"apiPokemon")
-
+        console.log("pokeapi: ", pokeapi)
         return res.json(pokeapi);
       })
       .catch((error) => {
@@ -85,7 +85,7 @@ async function pokemonById(req, res, next) {
         height: data.data.height,
         weight: data.data.weight,
         sprite: data.data.sprites.other.dream_world.front_default,
-        type: data.data.types.map((e) => e.type.name),
+        types: p.types.map((e) => e.type),
       };
       res.json(infoId);
     }
@@ -151,7 +151,7 @@ async function pokeByName(req, res, next) {
           attack: pokeApi.data.stats[1].base_stat,
           defense: pokeApi.data.stats[2].base_stat,
           speed: pokeApi.data.stats[5].base_stat,
-          type: pokeApi.data.types[0].type.name,
+          types: p.types.map((e) => e.type),
         },
       ];
       if (pokeApi.data.types.length > 1) {

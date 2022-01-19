@@ -1,7 +1,5 @@
 import React from "react";
-
 import { useSelector } from "react-redux";
-
 import Cards from "./Cards";
 
 const Home = () => {
@@ -12,17 +10,20 @@ const Home = () => {
 
   console.log(pokeAll, "pokeAll");
 
+ 
+
   return (
     <div>
       {pokeAll ? (
         pokeAll.map((po) => {
+            console.log("po.types: ", po.types)
           return (
             <Cards
               key={po.id}
               img={po.img}
               name={po.name}
               hp={po.hp}
-              types={po.types}
+              type={po.types}
             />
           );
         })

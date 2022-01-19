@@ -10,13 +10,12 @@ export const POKE_DELETE = "UPDATE_OPERATIONS";
 export const POKE_TYPE = "POKE_TYPE";
 export const FILTER_TYPE = "FILTER_TYPE";
 
-
 export function getPokemonsApi() {
   return async (dispatch) => {
     const { data } = await axios.get(`/pokemon/api`);
-    console.log(data,"dataaaa")
+    console.log(data, "dataaaa");
     dispatch({ type: POKE_API, payload: data });
-};
+  };
 }
 export function getPokemonsDb() {
   return async (dispatch) => {
@@ -61,15 +60,16 @@ export function deletePokemon(id) {
 }
 
 export const getTypes = () => {
-    return async (dispatch) => {
-      const { data } = await axios.get(`/type`);
-      dispatch({ type: POKE_TYPE, payload: data });
-    };
+  console.log("1.datatype");
+  return async (dispatch) => {
+    const { data } = await axios.get(`/type`);
+    console.log(data, "datatype");
+    dispatch({ type: POKE_TYPE, payload: data });
   };
+};
 
-  export const filterByType= (payload) => {
-    return (dispatch) => {
-      dispatch({ type: FILTER_TYPE, payload: payload });
-    };
+export const filterByType = (payload) => {
+  return (dispatch) => {
+    dispatch({ type: FILTER_TYPE, payload: payload });
   };
- 
+};
