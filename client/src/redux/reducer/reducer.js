@@ -38,7 +38,7 @@ function RootReducer(state = initialState, action) {
     case POKE_DETAIL:
       return {
         ...state,
-        pokemonsDetail: action.payload,
+        pokemonDetail: action.payload,
       };
     case POKE_SEARCH:
       return {

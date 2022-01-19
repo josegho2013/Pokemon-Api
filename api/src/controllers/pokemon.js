@@ -7,7 +7,7 @@ const { v4: uuidv4 } = require("uuid");
 async function getApiPokemons(req, res, next) {
   const apiUrl = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=5");
   let apiInfo = apiUrl.data.results.map((el) => axios.get(el.url));
-  
+
   try {
     // informacion de la api
 
@@ -31,7 +31,6 @@ async function getApiPokemons(req, res, next) {
           });
         });
 
-        console.log("pokeapi: ", pokeapi)
         return res.json(pokeapi);
       })
       .catch((error) => {
@@ -54,13 +53,12 @@ async function getDbPokemons(req, res, next) {
   }
 }
 
-// const results = dbPokemons.concat(apiPokemon)
-// return res.json(results)
-
 async function pokemonById(req, res, next) {
   try {
     const { id } = req.params;
-
+    console.log("1.iddata: ", req.params);
+    console.log("2.iddata: ", req.body);
+    console.log("3.iddata: ", req.query);
     if (id) {
       const pokeId = await Pokemon.findOne({
         where: { id: id },
@@ -70,7 +68,6 @@ async function pokemonById(req, res, next) {
           through: { attributes: [] },
         },
       });
-      console.log("pokeId: ", pokeId);
 
       return res.status(200).send(pokeId);
     } else {

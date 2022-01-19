@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Cards = ({ name, hp, type, img, id }) => {
-  console.log("type: ", type);
+  console.log(id,"IDDD")
   return (
     <div>
       <img
@@ -18,11 +18,11 @@ const Cards = ({ name, hp, type, img, id }) => {
       <h4>Types: </h4>
       <div>
         {type?.map((t) => {
-          return <li key={t.name}>{t.name}</li>;
+          return <p key={t.name}>{t.name}</p>;
         })}
       </div>
-      <Link to={`/pokemon/${id}`}>
-        <button className="btn_card">Ver mas</button>
+      <Link to={`/pokemonDetail/${id}`}>
+        <button >Ver mas</button>
       </Link>
     </div>
   );

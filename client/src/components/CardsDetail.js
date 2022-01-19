@@ -2,13 +2,13 @@ import {React, useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { getPokemonId } from "../redux/actions/actions";
 
-const CardDetail = ({id}) => {
+const CardsDetail = ({id}) => {
     const dispatch = useDispatch();
     const pokemonDetail= useSelector(({ pokemonDetail }) => pokemonDetail);
-
+    console.log(id,"ultimo")
     useEffect(() => {
         dispatch(getPokemonId(id));
-      }, []);
+      }, [dispatch, id]);
 
 
     if (!pokemonDetail) {
@@ -18,7 +18,8 @@ const CardDetail = ({id}) => {
 
     return (
         <div>
-            {pokemonDetail ? (
+            <h1>entro aqui</h1>
+            {/* {pokemonDetail ? (
         <div>
           <img src={pokemonDetail.img} />
           <div >
@@ -41,9 +42,9 @@ const CardDetail = ({id}) => {
         </div>
       ) : (
         <div >Loading...</div>
-      )}
+      )} */}
         </div>
     )
 }
 
-export default CardDetail
+export default CardsDetail

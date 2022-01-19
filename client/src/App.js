@@ -1,5 +1,5 @@
 import React from "react";
-import { Route,Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Landing from "./components/Landing";
 import Create from "./components/Create";
@@ -11,20 +11,17 @@ import "./App.css";
 function App() {
   return (
     <div>
-       <Routes>
-      <Route exact path="/" element={<Landing />} />
-      <Route path="/" element={<Navbar />} />
-
-      <Route exact path="/Home" element={<Home />} />
-      {/* <Route path="/pokemon/:id" element={<CardsDetail />} /> */}
-      <Route
-        exact
-        path="/pokemon/:id"
-        render={({ match }) => <CardsDetail id={match.params.id} />}
-      />
-
-      <Route path="/create" element={<Create />} />
-      <Route exact path="/Home" element={<Footer />} />
+      <Routes>
+        <Route exact path="/" element={<Landing />} />
+        <Route path="/" element={<Navbar />} />
+        <Route exact path="/Home" element={<Home />} />
+        <Route
+          exact
+          path="/pokemonDetail"
+          render={({ match }) => <CardsDetail id={match.params} />}
+        />
+        <Route path="/create" element={<Create />} />
+        <Route exact path="/Home" element={<Footer />} />
       </Routes>
     </div>
   );

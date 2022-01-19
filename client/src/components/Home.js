@@ -5,20 +5,17 @@ import Cards from "./Cards";
 const Home = () => {
   const pokeApi = useSelector(({ pokemonApi }) => pokemonApi);
   const pokeDb = useSelector(({ pokemonDb }) => pokemonDb);
-
   const pokeAll = pokeApi.concat(pokeDb);
 
   console.log(pokeAll, "pokeAll");
-
- 
 
   return (
     <div>
       {pokeAll ? (
         pokeAll.map((po) => {
-            console.log("po.types: ", po.types)
           return (
             <Cards
+              id={po.id}
               key={po.id}
               img={po.img}
               name={po.name}

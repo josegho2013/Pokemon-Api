@@ -26,6 +26,7 @@ export function getPokemonsDb() {
 
 export function getPokemonId(id) {
   return async (dispatch) => {
+    console.log("id action: ", id);
     const { data } = await axios.get(`/pokemon/pokemonDetail/${id}`);
     dispatch({ type: POKE_DETAIL, payload: data });
   };
