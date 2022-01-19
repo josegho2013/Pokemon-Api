@@ -54,13 +54,13 @@ async function getDbPokemons(req, res, next) {
 }
 
 async function pokemonById(req, res, next) {
-  const { id } = req.params;
+  const { id } = req.params.id;
   console.log(id, "culo");
-  
+
   try {
     if (id.includes("-")) {
-      const pokeId = await Pokemon.findOne({
-        where: { id: id },
+      const pokeId = await Pokemon.findByPk({
+        // where: { id: id },
         include: {
           model: Type,
           attributes: ["name"],

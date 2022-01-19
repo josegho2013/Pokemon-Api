@@ -32,7 +32,7 @@ const CardsDetail = (props) => {
 
   return (
     <div>
-      <h1> {props.edit}entro aqui</h1>
+      <p>entro aqui {props.edit}</p>
       {/* {pokemonDetail ? (
         <div>
           <img src={pokemonDetail.img} />

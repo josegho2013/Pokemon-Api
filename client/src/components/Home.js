@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import  Footer from"./Footer"
 import Cards from "./Cards";
 
 const Home = () => {
@@ -28,7 +29,7 @@ const Home = () => {
         <div>Loading...</div>
       )}
 
-      <h1>Por fin Apareci</h1>
+      <Footer/>
     </div>
   );
 };
