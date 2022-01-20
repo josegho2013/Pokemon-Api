@@ -36,12 +36,12 @@ function RootReducer(state = initialState, action) {
       };
 
     case POKE_DETAIL:
-      console.log("action.payload: ",action.payload)
       return {
         ...state,
         pokemonDetail: action.payload,
       };
-    case POKE_SEARCH:
+      case POKE_SEARCH:
+      console.log("action.payload: ",action.payload)
       return {
         ...state,
         requestPoke: action.payload,

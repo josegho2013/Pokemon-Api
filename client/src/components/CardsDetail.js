@@ -2,13 +2,18 @@ import { React, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getPokemonId } from "../redux/actions/actions";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const CardsDetail = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const pokemonDetail = useSelector(({ pokemonDetail }) => pokemonDetail);
 
-  
+  const pokeApi = useSelector(({ pokemonApi }) => pokemonApi);
+  const pokeDb = useSelector(({ pokemonDb }) => pokemonDb);
+  const pokeAll = pokeApi.concat(pokeDb);
+
   useEffect(() => {
     dispatch(getPokemonId(params.id));
     //init();
@@ -36,26 +41,26 @@ const CardsDetail = () => {
 
   return (
     <div>
-      <p>entro aqui </p>
+      <Navbar />
+
       {pokemonDetail ? (
         <div>
+          <h2>{pokemonDetail.name}</h2>
           <img src={pokemonDetail.sprite} />
+          <p>Hp:{pokemonDetail.hp}</p>
+          <p>Attack:{pokemonDetail.attack}</p>
+          <p>Defense:{pokemonDetail.defense}</p>
+          <p>Speed:{pokemonDetail.speed}</p>
           <div>
-            <h2>{pokemonDetail.name}</h2>
-            <p>{pokemonDetail.hp}</p>
-            <p>{pokemonDetail.attack}</p>
-
-            <p>{pokemonDetail.defense}</p>
-
-            <p>{pokemonDetail.speed}</p>
+            {pokemonDetail.types?.map((t) => {
+              return <p key={t.name}>{t.name}</p>;
+            })}
           </div>
-          {/* {pokemonDetail.type.map((g) => {
-            return <h3 key={g.id}>{g.name}</h3>;
-          })} */}
         </div>
       ) : (
         <div>Loading...</div>
       )}
+      <Footer />
     </div>
   );
 };

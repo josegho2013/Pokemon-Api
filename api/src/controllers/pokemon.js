@@ -53,7 +53,7 @@ async function getDbPokemons(req, res, next) {
 
 async function pokemonById(req, res, next) {
   const { id } = req.params;
-  console.log("Id: ", id);
+
   try {
     if (id.includes("-")) {
       const pokeId = await Pokemon.findOne({
@@ -67,7 +67,7 @@ async function pokemonById(req, res, next) {
       return res.status(200).send(pokeId);
     } else {
       console.log("2.infoId: ");
-      const data = await axios.get(`https://pokeapi.co/api/v2/pokemon/1`);
+      const data = await axios.get(`https://pokeapi.co/api/v2/pokemon/` + id);
 
       const infoId = {
         id: data.data.id,
@@ -89,7 +89,8 @@ async function pokemonById(req, res, next) {
 }
 
 async function pokemonCreate(req, res, next) {
-  let { name, type, hp, attack, defense, speed, height, weight, fromDb } = req.body;
+  let { name, type, hp, attack, defense, speed, height, weight, fromDb } =
+    req.body;
 
   try {
     let newPokemon = await Pokemon.create({
@@ -121,9 +122,10 @@ async function pokemonCreate(req, res, next) {
 
 async function pokeByName(req, res, next) {
   const search = req.query.q;
-  console.log(search, "busqueda");
+  console.log("1.search", search)
   try {
     let pokeDB = await Pokemon.findOne({ where: { name: search } });
+
     if (pokeDB !== null) {
       return res.send(pokeDB);
     } else {
