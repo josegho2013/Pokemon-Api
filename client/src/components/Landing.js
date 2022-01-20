@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getPokemonsApi, getPokemonsDb } from "../redux/actions/actions";
+import { getPokemonsApi, getPokemonsDb, getTypes } from "../redux/actions/actions";
 import { Link } from "react-router-dom";
 import "./styles/Landing.css";
 
@@ -11,6 +11,7 @@ const Landing = () => {
   useEffect(() => {
     dispatch(getPokemonsApi());
     dispatch(getPokemonsDb());
+    dispatch(getTypes());
   }, [dispatch]);
 
   return (

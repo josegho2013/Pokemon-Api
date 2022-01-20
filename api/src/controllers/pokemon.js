@@ -16,7 +16,7 @@ async function getApiPokemons(req, res, next) {
         let pokeapi = [];
         apiPokemonMap.map((p) => {
           pokeapi.push({
-            id: uuidv4(),
+            id: p.id,
             name: p.name,
             hp: p.stats[0].base_stat,
             attack: p.stats[1].base_stat,
@@ -53,9 +53,9 @@ async function getDbPokemons(req, res, next) {
 
 async function pokemonById(req, res, next) {
   const { id } = req.params;
-
+  console.log("Id: ", id);
   try {
-    if (!id.includes("-")) {
+    if (id.includes("-")) {
       const pokeId = await Pokemon.findOne({
         where: { id: id },
         include: {
@@ -64,11 +64,10 @@ async function pokemonById(req, res, next) {
           through: { attributes: [] },
         },
       });
-
       return res.status(200).send(pokeId);
     } else {
       console.log("2.infoId: ");
-      const data = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+      const data = await axios.get(`https://pokeapi.co/api/v2/pokemon/1`);
 
       const infoId = {
         id: data.data.id,
@@ -80,7 +79,7 @@ async function pokemonById(req, res, next) {
         height: data.data.height,
         weight: data.data.weight,
         sprite: data.data.sprites.other.dream_world.front_default,
-        types: p.types.map((e) => e.type),
+        types: data.data.types.map((e) => e.type),
       };
       return res.status(200).send(infoId);
     }
@@ -90,14 +89,11 @@ async function pokemonById(req, res, next) {
 }
 
 async function pokemonCreate(req, res, next) {
-  let { name, type, hp, attack, defense, speed, height, weight, fromDb  } =
-    req.body;
-
-  console.log(name, "nameeee");
+  let { name, type, hp, attack, defense, speed, height, weight, fromDb } = req.body;
 
   try {
     let newPokemon = await Pokemon.create({
-      
+      id: uuidv4(),
       name,
       hp,
       attack,
@@ -113,7 +109,6 @@ async function pokemonCreate(req, res, next) {
         name: type,
       },
     });
-    console.log("typeDb;: ", typeDb);
 
     newPokemon.addType(typeDb);
 
@@ -126,14 +121,14 @@ async function pokemonCreate(req, res, next) {
 
 async function pokeByName(req, res, next) {
   const search = req.query.q;
-
+  console.log(search, "busqueda");
   try {
     let pokeDB = await Pokemon.findOne({ where: { name: search } });
     if (pokeDB !== null) {
       return res.send(pokeDB);
     } else {
       const pokeApi = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/${search}`
+        `https://pokeapi.co/api/v2/pokemon/search?q=${search}`
       );
 
       const pokeData = [

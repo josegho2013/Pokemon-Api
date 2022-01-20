@@ -17,9 +17,9 @@ const Navbar = () => {
     e.preventDefault();
     dispatch(getPokemonByName(search));
 
-    if (search) {
-      setSearch("");
-    }
+    // if (search) {
+    //   setSearch("");
+    // }
   };
   const reset = () => {
     dispatch(pokeAll());
