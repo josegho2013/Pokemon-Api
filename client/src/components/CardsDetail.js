@@ -1,45 +1,58 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getPokemonId } from "../redux/actions/actions";
 
-const CardsDetail = (props) => {
-  console.log(props, "ultimo");
+const CardsDetail = () => {
   const dispatch = useDispatch();
+  const id = useParams();
+
+  // const culo = useSelector(({ pokemonDetail }) => pokemonDetail);
   const pokemonDetail = useSelector(({ pokemonDetail }) => pokemonDetail);
-  const params = useParams();
-  // console.log(id, "ultimo");
+  //const [pokemonDetail, setDetail] = useState({});
+  //console.log("2.ultimo: ", pokemonDetail);
+
+  const pokeApi = useSelector(({ pokemonApi }) => pokemonApi);
+  const pokeDb = useSelector(({ pokemonDb }) => pokemonDb);
+  const pokeAll = pokeApi.concat(pokeDb);
+
 
   useEffect(() => {
-    init();
-    dispatch(getPokemonId());
+    dispatch(getPokemonId(id));
+    //init();
   }, [dispatch]);
 
-  const init = () => {
-    if (params.id) {
-      const dataById = pokemonDetail.filter((i) => {
-        if (i.id === params.id) {
-          return i;
-        }
-        return i;
-      });
-    }
-  };
 
-  if (!pokemonDetail) {
-    return <div>Loading...</div>;
-  }
+  // const init = () => {
+  //   if (culo) {
+  //     setDetail(culo);
+  //   }
+  // setDetail(useSelector(({ pokemonDetail }) => pokemonDetail));
+
+  // if (params.id) {
+  //   const dataById = pokemonDetail.filter((i) => {
+  //     if (i.id === params.id) {
+  //       return i;
+  //     }
+  //     return i;
+  //   });
+  //   console.log("2.ultimo: ", pokemonDetail);
+  // }
+
+  // if (!pokemonDetail) {
+  //   return <div>Loading...</div>;
+  // }
+
 
   return (
     <div>
-      <p>entro aqui {props.edit}</p>
-      {/* {pokemonDetail ? (
+      <p>entro aqui </p>
+      {pokemonDetail ? (
         <div>
           <img src={pokemonDetail.img} />
-          <div >
+          <div>
             <h2>{pokemonDetail.name}</h2>
             <p>{pokemonDetail.hp}</p>
-            <p>{pokemonDetail.attack}</p>
             <p>{pokemonDetail.attack}</p>
 
             <p>{pokemonDetail.defense}</p>
@@ -48,17 +61,16 @@ const CardsDetail = (props) => {
             <p>{pokemonDetail.height}</p>
             <p>{pokemonDetail.weight}</p>
 
-            <h3>{pokemonDetail.rating}</h3>
+            
           </div>
-          {pokemonDetail.type.map((g) => {
+          {/* {pokemonDetail.type.map((g) => {
             return <h3 key={g.id}>{g.name}</h3>;
-          })}
+          })} */}
         </div>
       ) : (
-        <div >Loading...</div>
-      )} */}
+        <div>Loading...</div>
+      )}
     </div>
   );
 };
-
 export default CardsDetail;

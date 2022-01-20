@@ -10,7 +10,6 @@ async function getApiPokemons(req, res, next) {
 
   try {
     // informacion de la api
-
     Promise.all(apiInfo)
       .then((pokemon) => {
         let apiPokemonMap = pokemon.map((p) => p.data);
@@ -26,7 +25,6 @@ async function getApiPokemons(req, res, next) {
             height: p.height,
             weight: p.weight,
             img: p.sprites.other.dream_world.front_default,
-            //types: p.types.map((t) => t.type.name),
             types: p.types.map((e) => e.type),
           });
         });
@@ -54,13 +52,12 @@ async function getDbPokemons(req, res, next) {
 }
 
 async function pokemonById(req, res, next) {
-  const { id } = req.params.id;
-  console.log(id, "culo");
+  const { id } = req.params;
 
   try {
-    if (id.includes("-")) {
-      const pokeId = await Pokemon.findByPk({
-        // where: { id: id },
+    if (!id.includes("-")) {
+      const pokeId = await Pokemon.findOne({
+        where: { id: id },
         include: {
           model: Type,
           attributes: ["name"],
@@ -70,6 +67,7 @@ async function pokemonById(req, res, next) {
 
       return res.status(200).send(pokeId);
     } else {
+      console.log("2.infoId: ");
       const data = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
 
       const infoId = {
@@ -84,7 +82,7 @@ async function pokemonById(req, res, next) {
         sprite: data.data.sprites.other.dream_world.front_default,
         types: p.types.map((e) => e.type),
       };
-      res.json(infoId);
+      return res.status(200).send(infoId);
     }
   } catch (error) {
     console.log(error);
@@ -92,13 +90,14 @@ async function pokemonById(req, res, next) {
 }
 
 async function pokemonCreate(req, res, next) {
-  let { name, type, hp, attack, defense, speed, height, weight, fromDb } =
+  let { name, type, hp, attack, defense, speed, height, weight, fromDb  } =
     req.body;
 
   console.log(name, "nameeee");
 
   try {
     let newPokemon = await Pokemon.create({
+      
       name,
       hp,
       attack,
