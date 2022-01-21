@@ -51,7 +51,7 @@ const CardsDetail = () => {
           <p>Attack:{pokemonDetail.attack}</p>
           <p>Defense:{pokemonDetail.defense}</p>
           <p>Speed:{pokemonDetail.speed}</p>
-          <div>
+          <div> <h4>Types:</h4>
             {pokemonDetail.types?.map((t) => {
               return <p key={t.name}>{t.name}</p>;
             })}

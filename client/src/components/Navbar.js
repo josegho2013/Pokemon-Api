@@ -9,17 +9,19 @@ import "./styles/Navbar.css";
 const Navbar = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
+ 
   const pokeApi = useSelector(({ pokemonApi }) => pokemonApi);
   const pokeDb = useSelector(({ pokemonDb }) => pokemonDb);
   const pokeAll = pokeApi.concat(pokeDb);
+
 
   const handleSearch = (e) => {
     e.preventDefault();
     dispatch(getPokemonByName(search));
   };
   if (search) {
-    setSearch("");
-  }
+  setSearch("");
+}
 
   const reset = () => {
     dispatch(pokeAll());
