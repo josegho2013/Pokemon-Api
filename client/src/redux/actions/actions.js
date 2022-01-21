@@ -35,7 +35,7 @@ export function getPokemonId(id) {
 
 export function getPokemonByName(payload) {
   return async (dispatch) => {
-    const { data } = await axios.get(`/pokemon/search?q=${payload}`);
+    const { data } = await axios.get(`/pokemon/search/${payload}`);
     console.log("1.search", data)
     dispatch({ type: POKE_SEARCH, payload: data });
   };

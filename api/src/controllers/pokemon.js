@@ -125,13 +125,15 @@ async function pokeByName(req, res, next) {
   console.log("1.search", search)
   try {
     let pokeDB = await Pokemon.findOne({ where: { name: search } });
-
+    console.log("2.pokeDB ", pokeDB )
     if (pokeDB !== null) {
       return res.send(pokeDB);
     } else {
+     
       const pokeApi = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/search?q=${search}`
+        `https://pokeapi.co/api/v2/pokemon/search/${search}`
       );
+      console.log("3.pokeApi ", pokeApi)
 
       const pokeData = [
         {

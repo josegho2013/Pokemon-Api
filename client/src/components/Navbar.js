@@ -9,19 +9,19 @@ import "./styles/Navbar.css";
 const Navbar = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
- 
+
   const pokeApi = useSelector(({ pokemonApi }) => pokemonApi);
   const pokeDb = useSelector(({ pokemonDb }) => pokemonDb);
   const pokeAll = pokeApi.concat(pokeDb);
 
-
   const handleSearch = (e) => {
     e.preventDefault();
     dispatch(getPokemonByName(search));
+    // if (search) {
+    //   setSearch("");
+    // }
   };
-  if (search) {
-  setSearch("");
-}
+  
 
   const reset = () => {
     dispatch(pokeAll());
@@ -50,6 +50,7 @@ const Navbar = () => {
           placeholder="Search pokemon..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+         
         />
         <button type="submit">Search</button>
       </form>
