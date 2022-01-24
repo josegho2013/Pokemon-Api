@@ -15,6 +15,7 @@ const Create = () => {
     speed: "",
     height: "",
     weight: "",
+    image:"",
     types: [],
   });
 
@@ -27,6 +28,7 @@ const Create = () => {
       speed: input.speed,
       height: input.height,
       weight: input.weight,
+      image: input.image,
       types: input.types,
     };
 
@@ -42,6 +44,7 @@ const Create = () => {
       speed: "",
       height: "",
       weight: "",
+      image:"",
       types: [],
     });
   }
@@ -49,6 +52,12 @@ const Create = () => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
+    });
+  }
+  function handleSelect(e) {
+    setInput({
+      ...input,
+      types: [...input.types, e.target.value],
     });
   }
 
@@ -136,16 +145,25 @@ const Create = () => {
           />
         </div>
         <div>
-          <label>Type: </label>
+          <label>Image: </label>
           <input
-            type="text"
-            name="types"
-            placeholder="Insert types"
-            value={input.types}
+            type="url"
+            name="image"
+            placeholder="Insert image"
+            value={input.image}
             onChange={(e) => handleChange(e)}
             required
           />
         </div>
+        <div>
+          <label>Type: </label>
+          <select multiple={true} onChange={(e) => handleSelect(e)}>
+            {pokeType.map((t) => {
+              return <option key={t.id}>{t.name}</option>;
+            })}
+          </select>
+        </div>
+        <button type="submit">Create</button>
       </form>
     </div>
   );

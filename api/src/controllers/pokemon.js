@@ -89,7 +89,7 @@ async function pokemonById(req, res, next) {
 }
 
 async function pokemonCreate(req, res, next) {
-  let { name, type, hp, attack, defense, speed, height, weight, fromDb } =
+  let { name, type, hp, attack, defense, speed, height, weight, image,fromDb } =
     req.body;
 
   try {
@@ -102,6 +102,7 @@ async function pokemonCreate(req, res, next) {
       speed,
       height,
       weight,
+      image,
       fromDb,
     });
 
