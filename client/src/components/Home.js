@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import  Footer from"./Footer"
 import Cards from "./Cards";
 import Navbar from "./Navbar";
+import "./styles/Home.css";
 
 const Home = () => {
   const pokeApi = useSelector(({ pokemonApi }) => pokemonApi);
@@ -12,7 +13,7 @@ const Home = () => {
   console.log(pokeAll, "pokeAll");
 
   return (
-    <div>
+    <div className="home">
       <Navbar/>
       {pokeAll ? (
         pokeAll.map((po) => {

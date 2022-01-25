@@ -14,8 +14,8 @@
     flex: 0 0 30%;
     background-color: hsla(0, 0%, 94.5%, 0.8);
     box-shadow: 6px 6px 10px rgb(71 71 71 / 43%);
-    /* background-image: url("../../image/card.jpg");
-    background-size: cover; */
+    /* background-image: url("../styles/fondo.jpg"); */
+    
   
   }
   .btn_card{

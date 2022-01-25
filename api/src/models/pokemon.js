@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
       },
       image: {
-        type: DataTypes.JSON,
+        type: DataTypes.STRING,
       },
     },
     {
