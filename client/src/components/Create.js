@@ -15,7 +15,7 @@ const Create = () => {
     speed: "",
     height: "",
     weight: "",
-    image:"",
+    image: "",
     types: [],
   });
 
@@ -33,7 +33,7 @@ const Create = () => {
     };
 
     e.preventDefault();
-
+    console.log("newPokemon", newPokemon);
     dispatch(createPokemon(newPokemon));
 
     setInput({
@@ -44,7 +44,7 @@ const Create = () => {
       speed: "",
       height: "",
       weight: "",
-      image:"",
+      image: "",
       types: [],
     });
   }
@@ -152,12 +152,12 @@ const Create = () => {
             placeholder="Insert image"
             value={input.image}
             onChange={(e) => handleChange(e)}
-            required
+            // required
           />
         </div>
         <div>
           <label>Type: </label>
-          <select multiple={true} onChange={(e) => handleSelect(e)}>
+          <select onChange={(e) => handleSelect(e)}>
             {pokeType.map((t) => {
               return <option key={t.id}>{t.name}</option>;
             })}
